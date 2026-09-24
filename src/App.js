@@ -10,7 +10,6 @@ import Authentication from "./routes/authentication/authentication.component";
 import Shop from "./routes/shop/shop.component";
 import Checkout from "./routes/checkout/checkout.component";
 import { setCurrentUser } from "./store/user/user.action";
-import ProductPage from "./routes/product/product.component";
 import ProfilePage from "./routes/profile-page/profile-page";
 
 const App = () => {
@@ -35,18 +34,23 @@ const App = () => {
         console.error("Error fetching profile:", error);
         return;
       }
+      console.log("Fetched profile:", profile);
 
       const userData = {
         uid: user.id,
         email: user.email,
         displayName: profile.display_name,
         mobileNumber: profile.mobile_number,
-        address: profile.address,
         city: profile.city,
-        country: profile.country,
+        streetName: profile.street_name,
+        buildingNumber: profile.building_number,
+        district: profile.district,
+        governorate: profile.governorate,
+        landmark: profile.landmark,
+        addressType: profile.address_type,
         createdAt: profile.created_at,
       };
-
+      console.log("Dispatching setCurrentUser with:", userData);
       dispatch(setCurrentUser(userData));
     };
 

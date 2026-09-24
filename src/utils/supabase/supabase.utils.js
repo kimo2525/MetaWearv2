@@ -15,6 +15,69 @@ export const requestEmailChange = async (newEmail) => {
   return data;
 };
 
+export const updateUserMobileNumber = async (userId, mobileNumber) => {
+  const { data, error } = await supabase
+    .from("profiles")
+    .update({
+      mobile_number: mobileNumber,
+    })
+    .eq("id", userId)
+    .select()
+    .single();
+
+  if (error) throw error;
+
+  return data;
+};
+
+export const updateUserAddress = async (userId, address) => {
+  const { data, error } = await supabase
+    .from("profiles")
+    .update({
+      display_name: address.fullName,
+      mobile_number: address.mobileNumber,
+      street_name: address.streetName,
+      building_number: address.buildingNumber,
+      city: address.city,
+      district: address.district,
+      governorate: address.governorate,
+      landmark: address.landmark,
+      address_type: address.addressType,
+    })
+    .eq("id", userId)
+    .select()
+    .single();
+
+  if (error) throw error;
+
+  return data;
+};
+
+export const changeUserPassword = async (
+  email,
+  currentPassword,
+  newPassword,
+) => {
+  // Verify the current password first
+  const { error: signInError } = await supabase.auth.signInWithPassword({
+    email,
+    password: currentPassword,
+  });
+
+  if (signInError) {
+    throw new Error("Current password is incorrect");
+  }
+
+  // Current password is valid → change it
+  const { data, error } = await supabase.auth.updateUser({
+    password: newPassword,
+  });
+
+  if (error) throw error;
+
+  return data;
+};
+
 export const getCategoriesAndProducts = async () => {
   const { data, error } = await supabase.from("categories").select(`
       title,

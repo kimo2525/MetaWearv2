@@ -4,6 +4,7 @@ export const EditFieldContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 20px;
+  height: 100%;
   a {
     width: 70px;
     height: 30px;
@@ -21,6 +22,7 @@ export const EditFieldContainer = styled.div`
 
 export const ShowUserInfo = styled.div`
   display: flex;
+  height: 100%;
   flex-direction: column;
 `;
 

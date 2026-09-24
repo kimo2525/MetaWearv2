@@ -16,6 +16,9 @@ import {
 import Button, {
   BUTTON_TYPE_CLASSES,
 } from "../../components/button/button.component";
+import { Breadcrumbs } from "../edit-number/edit-number.styles";
+import { NavLink } from "react-router-dom";
+import BreadCrumb from "../../components/bread-crumb/bread-crumb.compnent";
 
 const EditEmail = ({ currentEmail = "" }) => {
   const [newEmail, setNewEmail] = useState("");
@@ -37,11 +40,8 @@ const EditEmail = ({ currentEmail = "" }) => {
       <EditEmailContainer>
         <EditEmailBox>
           <StepText>Step 2 of 2</StepText>
-
           <Title>Check your email</Title>
-
           <p>We sent a verification link to:</p>
-
           <strong>{newEmail}</strong>
         </EditEmailBox>
       </EditEmailContainer>
@@ -50,20 +50,22 @@ const EditEmail = ({ currentEmail = "" }) => {
 
   return (
     <EditEmailContainer>
+      <BreadCrumb
+        links={[
+          { label: "Your Account", href: "/youraccount" },
+          { label: "Change your email address", href: "" },
+        ]}
+      />
+      <br />
       <EditEmailBox>
         <StepText>Step 1 of 2</StepText>
-
         <Title>Change your email address</Title>
-
         <CurrentEmailContainer>
           <CurrentEmailLabel>Current email address:</CurrentEmailLabel>
-
           <CurrentEmail>{currentEmail}</CurrentEmail>
         </CurrentEmailContainer>
-
         <Form onSubmit={changeEmailHandler}>
           <Label htmlFor="newEmail">New email address</Label>
-
           <EmailInput
             id="newEmail"
             name="newEmail"

@@ -11,6 +11,11 @@ export const BreadCrumbContainer = styled.div`
       color: #1e51f2;
       text-decoration: underline;
       color: gray;
+      &:last-child {
+        text-decoration: none;
+        color: black;
+        cursor: default;
+      }
     }
   }
 `;

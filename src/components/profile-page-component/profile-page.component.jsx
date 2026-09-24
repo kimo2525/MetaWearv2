@@ -13,12 +13,14 @@ const ProfilePageComponent = () => {
   const links = [];
 
   const currentUser = useSelector(selectCurrentUser);
-  console.log(currentUser, "currentUser");
+  // console.log(currentUser, "currentUser");
+
   return (
     <ProfilePageComponentContainer>
       <InnerComponentContainer>
         <EditField
-          accessToken={"name/appActionToken"}
+          accessToken={"name/editname"}
+          address={false}
           label="Name"
           field={
             currentUser?.displayName ? currentUser?.displayName : "Your Name"
@@ -26,7 +28,8 @@ const ProfilePageComponent = () => {
         />
         <hr />
         <EditField
-          accessToken={"email/editRequest"}
+          accessToken={"email/editemail"}
+          address={false}
           label="Email"
           field={
             currentUser?.email ? currentUser?.email : "something@something.com"
@@ -34,21 +37,26 @@ const ProfilePageComponent = () => {
         />
         <hr />
         <EditField
+          accessToken={"mobile/editmobilenumber"}
+          address={false}
           label="Mobile number"
           field={
             currentUser?.mobileNumber ? currentUser?.mobileNumber : "023456789"
           }
         />
         <hr />
-        <EditField label="Password" field="***********" />
+        <EditField
+          accessToken={"password/editpassword"}
+          label="Password"
+          field="***********"
+          address={false}
+        />
         <hr />
         <EditField
+          accessToken={"address/editaddress"}
           label="Address"
-          field={
-            currentUser?.address
-              ? currentUser?.address
-              : "123 asdasdasds asdasasd, 21321"
-          }
+          address={true}
+          field={currentUser ? currentUser : "Your Address"}
         />
       </InnerComponentContainer>
     </ProfilePageComponentContainer>

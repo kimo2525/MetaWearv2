@@ -5,6 +5,9 @@ import { Route, Routes } from "react-router-dom";
 import ProfilePageComponent from "../../components/profile-page-component/profile-page.component";
 import EditName from "../edit-name/edit-name";
 import EditEmail from "../edit-email/edit-email";
+import EditMobile from "../edit-number/edit-number";
+import EditPassword from "../edit-password/edit-password";
+import EditAddress from "../edit-address/edit-address";
 
 const ProfilePage = () => {
   const links = [];
@@ -15,13 +18,16 @@ const ProfilePage = () => {
     <Routes>
       <Route index element={<ProfilePageComponent />} />
       <Route
-        path="name/:appActionToken"
+        path="name/:editname"
         element={<EditName currentName={currentUser?.displayName || ""} />}
       />
       <Route
-        path="email/:editRequest"
+        path="email/:editemail"
         element={<EditEmail currentName={currentUser?.email || ""} />}
       />
+      <Route path="mobile/:mobilenumber" element={<EditMobile />} />
+      <Route path="password/:editpassword" element={<EditPassword />} />
+      <Route path="address/:editaddress" element={<EditAddress />} />
     </Routes>
   );
 };

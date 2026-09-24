@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const EditEmailContainer = styled.div`
   width: 550px;
-  margin: 40px auto;
+  margin: 0px auto;
 `;
 
 export const EditEmailBox = styled.div`
