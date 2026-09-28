@@ -1,26 +1,79 @@
-import { createAction } from '../../utils/reducer/reducer.utils';
-import { CART_ACTION_TYPES } from './cart.types';
+import { createAction } from "../../utils/reducer/reducer.utils";
+import { CART_ACTION_TYPES } from "./cart.types";
 
-const addCartItem = (cartItems, productToAdd) => {
+const addCartItemSize = (cartItems, selectedSize, productToAdd) => {
+  if (!cartItems || cartItems.length === 0) {
+    return cartItems;
+  }
   const existingCartItem = cartItems.find(
-    (cartItem) => cartItem.id === productToAdd.id
+    (cartItem) => cartItem.id === productToAdd.id,
   );
 
   if (existingCartItem) {
     return cartItems.map((cartItem) =>
       cartItem.id === productToAdd.id
-        ? { ...cartItem, quantity: cartItem.quantity + 1 }
-        : cartItem
+        ? {
+            ...cartItem,
+            selectedSize,
+          }
+        : cartItem,
+    );
+  }
+  return cartItems;
+};
+
+const addCartItemColor = (cartItems, selectedColor, productToAdd) => {
+  if (!cartItems || cartItems.length === 0) {
+    return cartItems;
+  }
+  const existingCartItem = cartItems.find(
+    (cartItem) => cartItem.id === productToAdd.id,
+  );
+
+  if (existingCartItem) {
+    return cartItems.map((cartItem) =>
+      cartItem.id === productToAdd.id
+        ? {
+            ...cartItem,
+            selectedColor,
+          }
+        : cartItem,
+    );
+  }
+  return cartItems;
+};
+
+const addCartItem = (cartItems, productToAdd) => {
+  const existingCartItem = cartItems.find(
+    (cartItem) => cartItem.id === productToAdd.id,
+  );
+
+  if (existingCartItem) {
+    return cartItems.map((cartItem) =>
+      cartItem.id === productToAdd.id
+        ? {
+            ...cartItem,
+            quantity: cartItem.quantity + 1,
+          }
+        : cartItem,
     );
   }
 
-  return [...cartItems, { ...productToAdd, quantity: 1 }];
+  return [
+    ...cartItems,
+    {
+      ...productToAdd,
+      quantity: 1,
+      selectedSize: "",
+      selectedColor: "",
+    },
+  ];
 };
 
 const removeCartItem = (cartItems, cartItemToRemove) => {
   // find the cart item to remove
   const existingCartItem = cartItems.find(
-    (cartItem) => cartItem.id === cartItemToRemove.id
+    (cartItem) => cartItem.id === cartItemToRemove.id,
   );
 
   // check if quantity is equal to 1, if it is remove that item from the cart
@@ -32,12 +85,21 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
   return cartItems.map((cartItem) =>
     cartItem.id === cartItemToRemove.id
       ? { ...cartItem, quantity: cartItem.quantity - 1 }
-      : cartItem
+      : cartItem,
   );
 };
 
 const clearCartItem = (cartItems, cartItemToClear) =>
   cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
+
+export const addItemToCartSize = (cartItems, selectedSize, productToAdd) => {
+  const newCartItems = addCartItemSize(cartItems, selectedSize, productToAdd);
+  return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
+};
+export const addItemToCartColor = (cartItems, selectedColor, productToAdd) => {
+  const newCartItems = addCartItemColor(cartItems, selectedColor, productToAdd);
+  return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
+};
 
 export const addItemToCart = (cartItems, productToAdd) => {
   const newCartItems = addCartItem(cartItems, productToAdd);

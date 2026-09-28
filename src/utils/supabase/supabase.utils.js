@@ -16,7 +16,7 @@ export const requestEmailChange = async (newEmail) => {
 };
 
 export const updateUserMobileNumber = async (userId, mobileNumber) => {
-  const { data, error } = await supabase
+  const { data, error } = await supabase``
     .from("profiles")
     .update({
       mobile_number: mobileNumber,
@@ -150,6 +150,98 @@ export const getCategoriesAndProducts = async () => {
       }),
     })),
   }));
+};
+
+export const getProductBySlug = async (productSlug) => {
+  const { data, error } = await supabase
+    .from("products")
+    .select(
+      `
+      id,
+      title,
+      slug,
+      brand,
+      category,
+      character,
+      price,
+      original_price,
+      currency,
+      rating,
+      review_count,
+      sizes,
+      colors,
+      image,
+      description,
+      features,
+      is_featured,
+      is_sale,
+      is_new,
+
+      product_variants (
+        id,
+        size,
+        color,
+        stock
+      )
+    `,
+    )
+    .eq("slug", productSlug)
+    .single();
+
+  if (error) {
+    throw error;
+  }
+
+  const variants = data.product_variants.map((variant) => ({
+    id: variant.id,
+    size: variant.size,
+    color: variant.color,
+    stock: variant.stock,
+  }));
+
+  return {
+    id: data.id,
+    title: data.title,
+    slug: data.slug,
+    brand: data.brand,
+    category: data.category,
+    character: data.character,
+
+    price: Number(data.price),
+
+    ...(data.original_price !== null && {
+      originalPrice: Number(data.original_price),
+    }),
+
+    currency: data.currency,
+    rating: Number(data.rating),
+    reviewCount: data.review_count,
+
+    sizes: data.sizes,
+    colors: data.colors,
+
+    // Exact inventory combinations
+    variants,
+
+    // Total stock across every variant
+    stock: variants.reduce((total, variant) => total + variant.stock, 0),
+
+    image: data.image,
+    description: data.description,
+    features: data.features,
+
+    ...(data.is_featured && {
+      isFeatured: true,
+    }),
+
+    ...(data.is_sale && {
+      isSale: true,
+    }),
+
+    ...(data.is_new && {
+      isNew: true,
+    }),
+  };
 };
 
 // EMAIL + PASSWORD SIGN IN

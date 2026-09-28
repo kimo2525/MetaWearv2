@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import BreadCrumb from "../bread-crumb/bread-crumb.compnent";
 import EditField from "../edit-field/edit-field.component";
 
 import {
@@ -19,7 +18,7 @@ const ProfilePageComponent = () => {
     <ProfilePageComponentContainer>
       <InnerComponentContainer>
         <EditField
-          accessToken={"name/editname"}
+          accessToken={"editname"}
           address={false}
           label="Name"
           field={
@@ -28,7 +27,7 @@ const ProfilePageComponent = () => {
         />
         <hr />
         <EditField
-          accessToken={"email/editemail"}
+          accessToken={"editemail"}
           address={false}
           label="Email"
           field={
@@ -37,7 +36,7 @@ const ProfilePageComponent = () => {
         />
         <hr />
         <EditField
-          accessToken={"mobile/editmobilenumber"}
+          accessToken={"editmobilenumber"}
           address={false}
           label="Mobile number"
           field={
@@ -46,14 +45,14 @@ const ProfilePageComponent = () => {
         />
         <hr />
         <EditField
-          accessToken={"password/editpassword"}
+          accessToken={"editpassword"}
           label="Password"
           field="***********"
           address={false}
         />
         <hr />
         <EditField
-          accessToken={"address/editaddress"}
+          accessToken={"editaddress"}
           label="Address"
           address={true}
           field={currentUser ? currentUser : "Your Address"}

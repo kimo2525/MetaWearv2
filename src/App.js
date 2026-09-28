@@ -34,7 +34,7 @@ const App = () => {
         console.error("Error fetching profile:", error);
         return;
       }
-      console.log("Fetched profile:", profile);
+      // console.log("Fetched profile:", profile);
 
       const userData = {
         uid: user.id,
@@ -50,7 +50,7 @@ const App = () => {
         addressType: profile.address_type,
         createdAt: profile.created_at,
       };
-      console.log("Dispatching setCurrentUser with:", userData);
+      // console.log("Dispatching setCurrentUser with:", userData);
       dispatch(setCurrentUser(userData));
     };
 

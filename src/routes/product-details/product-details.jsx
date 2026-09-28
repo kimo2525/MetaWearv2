@@ -1,10 +1,4 @@
 import {
-  selectCategoriesMap,
-  selectCurrentProduct,
-  selectIsProductLoading,
-  selectProductError,
-} from "../../store/categories/category.selector";
-import {
   Image,
   ProductDetails,
   PriceRatingName,
@@ -19,47 +13,26 @@ import {
   StockContainer,
   OutOfStock,
   InStock,
-  ProductDetailsComponentContainer,
-} from "./product.styles";
-
+} from "./product-details.styles.jsx";
 import BreadCrumb from "../../components/bread-crumb/bread-crumb.compnent";
-// import { ProductDetailsComponentContainer } from "./product-details.styles";
+
+import Button, {
+  BUTTON_TYPE_CLASSES,
+} from "../../components/button/button.component";
+import { ProductDetailsComponentContainer } from "./product-details.styles";
+import { useState } from "react";
+import { addItemToCart } from "../../store/cart/cart.action.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { selectCartItems } from "../../store/cart/cart.selector.js";
-import { addItemToCart } from "../../store/cart/cart.action";
 
-import { useEffect, useState } from "react";
-import { fetchProductAsync } from "../../store/categories/category.action";
-import Spinner from "../../components/spinner/spinner.component";
-import ProductDetailsComponent from "../product-details/product-details";
-import Button, {
-  BUTTON_TYPE_CLASSES,
-} from "../../components/button/button.component.jsx";
-
-const ProductPage = () => {
+const ProductDetailsComponent = ({ product }) => {
   const cartItems = useSelector(selectCartItems);
-
+  const addProductToCart = () => dispatch(addItemToCart(cartItems, product));
   const dispatch = useDispatch();
+  const { character } = useParams();
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
-
-  const addProductToCart = () => dispatch(addItemToCart(cartItems, product));
-  const { character, productSlug } = useParams();
-  // const charactersMap = useSelector(selectCategoriesMap);
-  // const products = charactersMap[character];
-  // const product = products?.find((item) => item.slug === productSlug);
-
-  const product = useSelector(selectCurrentProduct);
-  const isProductLoading = useSelector(selectIsProductLoading);
-  const productError = useSelector(selectProductError);
-
-  const links = [
-    { href: "/shop", label: "shop" },
-    { href: `/shop/${character}`, label: character },
-    { href: ``, label: product?.title },
-  ];
-
   const selectedVariant = product?.variants?.find(
     (variant) =>
       variant.size === selectedSize && variant.color === selectedColor,
@@ -108,22 +81,32 @@ const ProductPage = () => {
         variant.stock > 0,
     );
   };
-  useEffect(() => {
-    dispatch(fetchProductAsync(productSlug));
-  }, [productSlug, dispatch]);
 
-  if (isProductLoading) {
-    return <Spinner />;
-  }
+  const links = [
+    { href: "/shop", label: "shop" },
+    { href: `/shop/${character}`, label: character },
+    { href: ``, label: product?.title },
+  ];
 
-  if (productError) {
-    return <div>Unable to load product.</div>;
-  }
+  const handleAddToCart = () => {
+    if (!selectedSize || !selectedColor) {
+      return;
+    }
 
-  if (!product) {
-    return null;
-  }
+    if (!selectedVariant || selectedVariant.stock <= 0) {
+      return;
+    }
 
+    const productToAdd = {
+      ...product,
+      selectedSize,
+      selectedColor,
+      variantId: selectedVariant.id,
+    };
+
+    dispatch(addItemToCart(productToAdd));
+  };
+  //   <h1> hello</h1>;
   return (
     <ProductDetailsComponentContainer>
       <BreadCrumb links={links} />
@@ -250,4 +233,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default ProductDetailsComponent;

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { EditBTN, EditFieldContainer, ShowUserInfo } from "./edit-field.styles";
 
 const EditField = ({ label, field, accessToken, address }) => {
-  console.log(field, "field");
+  // console.log(field, "field");
   return (
     <EditFieldContainer>
       <ShowUserInfo>

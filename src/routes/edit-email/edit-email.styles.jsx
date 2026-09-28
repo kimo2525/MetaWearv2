@@ -8,10 +8,8 @@ export const EditEmailContainer = styled.div`
 export const EditEmailBox = styled.div`
   width: 100%;
   padding: 30px 38px;
-
   border: 1px solid #d5d9d9;
   border-radius: 12px;
-
   box-sizing: border-box;
 `;
 
@@ -35,14 +33,12 @@ export const CurrentEmailContainer = styled.div`
 
 export const CurrentEmailLabel = styled.p`
   margin: 0 0 4px 0;
-
   font-size: 17px;
   font-weight: 700;
 `;
 
 export const CurrentEmail = styled.p`
   margin: 0;
-
   font-size: 17px;
 `;
 

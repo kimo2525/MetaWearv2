@@ -9,7 +9,6 @@ import {
 const DirectoryItem = ({ category }) => {
   const { imageUrl, title, route } = category;
   const navigate = useNavigate();
-
   const onNavigateHandler = () => navigate(route.toLowerCase());
 
   return (

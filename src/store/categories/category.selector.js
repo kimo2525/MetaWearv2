@@ -9,6 +9,20 @@ export const selectCategories = createSelector(
   (categoriesSlice) => categoriesSlice.categories,
 );
 
+export const selectCurrentProduct = createSelector(
+  [selectCategoryReducer],
+  (categorySlice) => categorySlice.currentProduct,
+);
+
+export const selectIsProductLoading = createSelector(
+  [selectCategoryReducer],
+  (categorySlice) => categorySlice.isProductLoading,
+);
+
+export const selectProductError = createSelector(
+  [selectCategoryReducer],
+  (categorySlice) => categorySlice.productError,
+);
 // export const selectCategories = createSelector(
 //   [selectCategoryReducer],
 //   (categoriesSlice) => DC_SHOP_DATA2,

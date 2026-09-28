@@ -12,8 +12,6 @@ import {
 import Button, {
   BUTTON_TYPE_CLASSES,
 } from "../../components/button/button.component";
-import { Breadcrumbs } from "../edit-number/edit-number.styles";
-import { NavLink } from "react-router-dom";
 import BreadCrumb from "../../components/bread-crumb/bread-crumb.compnent";
 
 const EditName = ({ currentName = "" }) => {

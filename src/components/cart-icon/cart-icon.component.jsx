@@ -15,7 +15,6 @@ const CartIcon = ({ setOpenProfile }) => {
   const isCartOpen = useSelector(selectIsCartOpen);
 
   const toggleIsCartOpen = () => dispatch(setIsCartOpen(!isCartOpen));
-
   return (
     <CartIconContainer
       onClick={() => {
@@ -24,7 +23,11 @@ const CartIcon = ({ setOpenProfile }) => {
       }}
     >
       <ShoppingIcon className="shopping-icon" />
-      <ItemCount>{cartCount}</ItemCount>
+      <ItemCount>
+        {/* {Array.isArray(cartCount) ? cartCount.length : cartCount} */}
+        {cartCount}
+        {/* {Array.isArray(cartCount) ? cartCount.length : cartCount} */}
+      </ItemCount>
     </CartIconContainer>
   );
 };

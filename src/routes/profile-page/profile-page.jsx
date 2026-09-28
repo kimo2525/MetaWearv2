@@ -18,16 +18,16 @@ const ProfilePage = () => {
     <Routes>
       <Route index element={<ProfilePageComponent />} />
       <Route
-        path="name/:editname"
+        path="editname"
         element={<EditName currentName={currentUser?.displayName || ""} />}
       />
       <Route
-        path="email/:editemail"
+        path="editemail"
         element={<EditEmail currentName={currentUser?.email || ""} />}
       />
-      <Route path="mobile/:mobilenumber" element={<EditMobile />} />
-      <Route path="password/:editpassword" element={<EditPassword />} />
-      <Route path="address/:editaddress" element={<EditAddress />} />
+      <Route path="editmobilenumber" element={<EditMobile />} />
+      <Route path="editpassword" element={<EditPassword />} />
+      <Route path="editaddress" element={<EditAddress />} />
     </Routes>
   );
 };
